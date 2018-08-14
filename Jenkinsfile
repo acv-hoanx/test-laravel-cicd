@@ -1,4 +1,9 @@
 pipeline {
+  environment {
+    DB_DATABASE = 'test-laravel-cicd'
+    DB_USERNAME = credentials('a5d8ff69-e76a-4ed3-ac6d-2bf3a94290c2')
+    DB_PASSWORD = credentials()
+  }
   agent any
   stages {
     stage('Build') {
@@ -11,6 +16,7 @@ pipeline {
     stage('Test') {
       steps {
         echo 'TEST STAGE'
+        sh 'printenv'
       }
     }
     stage('Deploy-Develop') {
