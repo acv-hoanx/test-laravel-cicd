@@ -14,12 +14,18 @@ pipeline {
     stage('Deploy-Develop') {
       parallel {
         stage('Deploy-Develop') {
+          when {
+            branch 'develop'
+          }
           steps {
             echo 'Deploy develop'
             sh 'composer -v'
           }
         }
         stage('Deploy-Production') {
+          when {
+            branch 'master'
+          }
           steps {
             echo 'Deploy Production'
           }
