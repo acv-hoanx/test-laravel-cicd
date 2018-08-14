@@ -3,12 +3,15 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo 'Build stage'
+        echo 'BUILD STAGE'
+        sh 'composer install'
+        sh 'npm install'
+        sh 'php artisan vendor:publish --all'
       }
     }
     stage('Test') {
       steps {
-        echo 'Test stage'
+        echo 'TEST STAGE'
       }
     }
     stage('Deploy-Develop') {
@@ -18,8 +21,8 @@ pipeline {
             branch 'develop'
           }
           steps {
-            echo 'Deploy develop'
-            sh 'composer -v'
+            echo 'DEPLOY DEVELOP'
+
           }
         }
         stage('Deploy-Production') {
@@ -27,7 +30,7 @@ pipeline {
             branch 'master'
           }
           steps {
-            echo 'Deploy Production'
+            echo 'DEPLOY PRODUCTION'
           }
         }
       }
