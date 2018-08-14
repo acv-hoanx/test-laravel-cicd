@@ -5,7 +5,6 @@ pipeline {
       steps {
         echo 'BUILD STAGE'
         sh 'composer install'
-        sh 'npm install'
         sh 'php artisan vendor:publish --all'
       }
     }
