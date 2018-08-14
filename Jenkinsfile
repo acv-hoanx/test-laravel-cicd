@@ -6,6 +6,7 @@ pipeline {
         echo 'BUILD STAGE'
         sh 'composer install'
         sh 'php artisan vendor:publish --all'
+        sh 'sudo npm install'
       }
     }
     stage('Test') {
