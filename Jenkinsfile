@@ -8,9 +8,8 @@ pipeline {
     stage('Build') {
       steps {
         echo 'BUILD STAGE'
-        sshagent(credentials: ['bae24a1e-e9f6-44c8-9d51-bdb42cf4bd60'], ignoreMissing: true) {
-            // some block
-            sh 'ls -l'
+        sshagent(['bae24a1e-e9f6-44c8-9d51-bdb42cf4bd60']) {
+            sh 'ssh -o StrictHostKeyChecking=no -l cloudbees 192.168.2.5 root -a -p2122'
         }
       }
     }
