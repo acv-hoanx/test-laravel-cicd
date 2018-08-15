@@ -14,14 +14,12 @@ pipeline {
       steps {
         echo 'TEST STAGE'
         sh 'printenv'
-        sshagent(['bae24a1e-e9f6-44c8-9d51-bdb42cf4bd60']) {
-          sh 'ssh -o StrictHostKeyChecking=no -l root 192.168.2.5 uname -a -p2122'
-        }
+
       }
     }
     stage('Deploy') {
       parallel {
-        stage('Deploy-Develop') {
+        stage('Develop') {
           when {
             branch 'develop'
           }
@@ -31,7 +29,7 @@ pipeline {
 
           }
         }
-        stage('Deploy-Production') {
+        stage('Production') {
           when {
             branch 'master'
           }
