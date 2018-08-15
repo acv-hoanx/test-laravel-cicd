@@ -8,7 +8,7 @@ pipeline {
     stage('Build') {
       steps {
         echo 'BUILD STAGE'
-        sshagent(['bae24a1e-e9f6-44c8-9d51-bdb42cf4bd60']) {
+        sshagent(credentials: ['bae24a1e-e9f6-44c8-9d51-bdb42cf4bd60'], ignoreMissing: true) {
             // some block
             sh 'ls -l'
         }
