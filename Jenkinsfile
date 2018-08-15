@@ -1,6 +1,7 @@
 pipeline {
   environment {
     DB_DATABASE = 'test-laravel-cicd'
+    AA_SSH_KEY = credentials('bae24a1e-e9f6-44c8-9d51-bdb42cf4bd60')
   }
   agent any
   stages {
@@ -13,7 +14,22 @@ pipeline {
       steps {
         echo 'TEST STAGE'
         sh 'printenv'
-        sh 'ssh -i /root/otocon.pem -p 2122 root@192.168.2.5'
+        def remote = [:]
+        remote.name = 'test'
+        remote.allowAnyHosts = true
+        remote.host = '192.168.2.5'
+        remote.user = 'root'
+        remote.port = 2122
+        remote.identity = credentials('bae24a1e-e9f6-44c8-9d51-bdb42cf4bd60')
+        remote.passphrase = ''
+        sshCommand remote: remote, command: "ls -lrt"
+
+
+
+#        sshagent(credentials: ['bae24a1e-e9f6-44c8-9d51-bdb42cf4bd60']) {
+#          sh 'ssh -o StrictHostKeyChecking=no -l root 192.168.2.5 uname -a -p 2122'
+#          sh 'ls -l'
+#        }
       }
     }
     stage('Deploy') {
