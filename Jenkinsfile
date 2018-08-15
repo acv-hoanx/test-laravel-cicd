@@ -1,13 +1,14 @@
 pipeline {
+  agent any
   environment {
     DB_DATABASE = 'test-laravel-cicd'
     AA_SSH_KEY = credentials('e2068618-67f0-4edb-925e-a7aa7c7a4bad')
   }
-  agent any
   stages {
     stage('Build') {
       steps {
         echo 'BUILD STAGE'
+        sh 'cd $PWD'
       }
     }
     stage('Test') {
