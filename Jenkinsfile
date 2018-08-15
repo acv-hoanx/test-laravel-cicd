@@ -10,7 +10,7 @@ pipeline {
         echo 'BUILD STAGE'
         sshagent(['a143fe61-9667-4021-9dd5-0aab668b1d8b']) {
             // some block
-            sh `ls -l`
+            sh 'ls -l'
         }
       }
     }
