@@ -8,7 +8,6 @@ pipeline {
     stage('Build') {
       steps {
         echo 'BUILD STAGE'
-        sh 'composer install'
       }
     }
     stage('Test') {
