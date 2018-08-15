@@ -14,6 +14,8 @@ pipeline {
       steps {
         echo 'TEST STAGE'
         sh 'printenv'
+      }
+      node {
         def remote = [:]
         remote.name = 'test'
         remote.allowAnyHosts = true
@@ -21,8 +23,9 @@ pipeline {
         remote.user = 'root'
         remote.port = 2122
         remote.identity = credentials('bae24a1e-e9f6-44c8-9d51-bdb42cf4bd60')
-        remote.passphrase = ''
-        sshCommand remote: remote, command: "ls -lrt"
+        stage('Remote SSH') {
+            sshCommand remote: remote, command: "ls -lrt"
+          }
       }
     }
     stage('Deploy') {
