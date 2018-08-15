@@ -8,8 +8,11 @@ pipeline {
     stage('Build') {
       steps {
         echo 'BUILD STAGE'
-        sh 'composer install'
-        sh 'php artisan vendor:publish --all'
+        sshagent(['a143fe61-9667-4021-9dd5-0aab668b1d8b']) {
+            // some block
+            ls -l
+            ls
+        }
       }
     }
     stage('Test') {
@@ -18,14 +21,15 @@ pipeline {
         sh 'printenv'
       }
     }
-    stage('Deploy-Develop') {
+    stage('Deploy') {
       parallel {
         stage('Deploy-Develop') {
           when {
             branch 'develop'
           }
           steps {
-            echo 'DEPLOY DEVELOP'
+            echo 'Deploy to tester'
+
 
           }
         }
