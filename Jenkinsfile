@@ -9,6 +9,8 @@ pipeline {
       steps {
         echo 'BUILD STAGE'
         sh 'cd $PWD'
+        sh 'ls -l'
+        sh 'composer install'
       }
     }
     stage('Test') {
