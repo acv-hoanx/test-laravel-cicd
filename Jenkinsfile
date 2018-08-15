@@ -1,10 +1,12 @@
-pipeline {
-  environment {
-    DB_DATABASE = 'test-laravel-cicd'
-    AA_SSH_KEY = credentials('bae24a1e-e9f6-44c8-9d51-bdb42cf4bd60')
-  }
-  agent any
-  stages {
+node {
+    def remote = [:]
+    remote.name = 'test'
+    remote.allowAnyHosts = true
+    remote.host = '192.168.2.5'
+    remote.user = 'root'
+    remote.port = 2122
+    remote.identity = credentials('bae24a1e-e9f6-44c8-9d51-bdb42cf4bd60')
+
     stage('Build') {
       steps {
         echo 'BUILD STAGE'
@@ -14,7 +16,9 @@ pipeline {
       steps {
         echo 'TEST STAGE'
         sh 'printenv'
+
       }
+      sshCommand remote: remote, command: "ls -lrt"
     }
     stage('Deploy') {
       parallel {
@@ -38,5 +42,4 @@ pipeline {
         }
       }
     }
-  }
 }
