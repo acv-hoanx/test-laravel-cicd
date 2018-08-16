@@ -6,10 +6,8 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo 'BUILD STAGE'
         sh 'printenv'
-        sh 'php -v'
-        sh 'php composer.phar --version'
+        fileExists 'composer.phar'
         sh 'php composer.phar install'
         sh 'cp .env.example .env'
         sh 'php artisan key:generate'
