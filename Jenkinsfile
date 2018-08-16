@@ -8,6 +8,9 @@ pipeline {
       steps {
         echo 'BUILD STAGE'
         sh 'printenv'
+        sh 'php -v'
+        sh 'git --version'
+        sh 'php composer.phar --version'
       }
     }
     stage('Test') {
