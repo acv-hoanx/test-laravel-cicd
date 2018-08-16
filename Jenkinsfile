@@ -7,13 +7,16 @@ pipeline {
     stage('Build') {
       steps {
         echo 'BUILD STAGE'
-        sh 'composer install'
+        sh 'printenv'
       }
     }
     stage('Test') {
       steps {
         echo 'TEST STAGE'
-        sh 'printenv'
+
+        sshagent(['8faea60a-53f3-4e03-b9ee-90fb2e485c5b']) {
+            ssh -p 2122 root@192.168.2.5
+        }
       }
     }
     stage('Deploy') {
