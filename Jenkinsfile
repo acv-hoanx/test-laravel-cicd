@@ -16,6 +16,7 @@ pipeline {
 
         sshagent(['8faea60a-53f3-4e03-b9ee-90fb2e485c5b']) {
             sh 'ssh -o StrictHostKeyChecking=no -l root 192.168.2.5 uname -a -p 2122'
+            sh 'cd /var/www/html/proj_otocon'
         }
       }
     }
