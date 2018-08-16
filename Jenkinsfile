@@ -15,7 +15,7 @@ pipeline {
         echo 'TEST STAGE'
 
         sshagent(['8faea60a-53f3-4e03-b9ee-90fb2e485c5b']) {
-            ssh root@192.168.2.5 uname -a -p 2122
+            sh 'ssh -o StrictHostKeyChecking=no -l root 192.168.2.5 uname -a -p 2122'
         }
       }
     }
