@@ -9,10 +9,11 @@ pipeline {
         echo 'BUILD STAGE'
         sh 'printenv'
         fileExists 'composer.phar'
-        sh 'php composer.phar --version'
-        sh 'php composer.phar install'
-        sh 'cp .env.example .env'
-        sh 'php artisan key:generate'
+        sh '''php composer.phar --version
+        php composer.phar install
+        cp .env.example .env
+        php artisan key:generate'''
+
       }
     }
     stage('Test') {
