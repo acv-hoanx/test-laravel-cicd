@@ -26,11 +26,7 @@ pipeline {
     stage('Test') {
       steps {
         echo 'TEST STAGE'
-        script {
-          if (comExists) {
-            sh "./vendor/bin/phpunit"
-          }
-        }
+        sh "./vendor/bin/phpunit"
         sshagent(['8faea60a-53f3-4e03-b9ee-90fb2e485c5b']) {
             sh 'ssh -p 2122 -o StrictHostKeyChecking=no root@192.168.2.5 bash $PATH_WEBROOT/scripts/deploy-develop.sh'
         }
