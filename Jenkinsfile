@@ -5,7 +5,6 @@ pipeline {
   }
   stages {
     stage('Build') {
-
       steps {
         parallel {
             node('pre-build'){
