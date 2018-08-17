@@ -6,28 +6,19 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        parallel {
-            node('pre-build'){
-                if (!fileExists('composer.phar')) {
-                    sh '''php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"
-                    php -r "if (hash_file(\'SHA384\', \'composer-setup.php\') === \'544e09ee996cdf60ece3804abc52599c22b1f40f4323403c44d44fdfdd586475ca9813a858088ffbc1f233e9b180f061\') { echo \'Installer verified\'; } else { echo \'Installer corrupt\'; unlink(\'composer-setup.php\'); } echo PHP_EOL;"
-                    php composer-setup.php
-                    php -r "unlink(\'composer-setup.php\');"'''
-                }
-            }
-            stage('post-build'){
-                sh 'printenv'
-                sh 'php composer.phar install'
-                sh 'cp .env.example .env'
-                sh 'php artisan key:generate'
-            }
-        }
-
+        echo 'BUILD STAGE'
+        sh 'printenv'
+        fileExists 'composer.phar'
+        sh 'php composer.phar --version'
+        sh 'php composer.phar install'
+        sh 'cp .env.example .env'
+        sh 'php artisan key:generate'
       }
     }
     stage('Test') {
       steps {
         echo 'TEST STAGE'
+        fileExists 'composer.phar'
         sh "./vendor/bin/phpunit"
 
         sshagent(['8faea60a-53f3-4e03-b9ee-90fb2e485c5b']) {
