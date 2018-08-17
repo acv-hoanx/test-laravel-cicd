@@ -8,12 +8,11 @@ pipeline {
       steps {
         echo 'BUILD STAGE'
         sh 'printenv'
+
         script {
-          if(fileExists('composer.phar') {
-            sh 'php composer.phar --version'
-            sh 'php composer.phar install'
-            sh 'cp .env.example .env'
-            sh 'php artisan key:generate'
+          def browsers = ['chrome', 'firefox']
+          for (int i = 0; i < browsers.size(); i++) {
+            echo "test - ${browsers[i]}"
           }
         }
       }
