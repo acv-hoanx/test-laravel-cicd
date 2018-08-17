@@ -5,16 +5,17 @@ pipeline {
   }
   stages {
     stage('Build') {
-      when {
-        fileExists 'composer.phar'
-      }
       steps {
         echo 'BUILD STAGE'
         sh 'printenv'
-        sh 'php composer.phar --version'
-        sh 'php composer.phar install'
-        sh 'cp .env.example .env'
-        sh 'php artisan key:generate'
+        script {
+          if(fileExists('composer.phar') {
+            sh 'php composer.phar --version'
+            sh 'php composer.phar install'
+            sh 'cp .env.example .env'
+            sh 'php artisan key:generate'
+          }
+        }
       }
     }
     stage('Test') {
